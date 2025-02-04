@@ -1,4 +1,5 @@
-
+import os
+import dotenv
 import streamlit as st
 from langchain import OpenAI
 from langchain.chat_models import ChatOpenAI
@@ -8,7 +9,13 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 
 
-OpenAI.api_key = ("<YOUR API KEY>")
+# Load the .env file and invoke the secret API key from the file
+#dotenv.load_dotenv('API.env')
+#OpenAI.api_key = os.getenv("OPEN_API_KEY")
+
+# Load the .env file and invoke the secret API key from the file
+dotenv.load_dotenv('API.env')
+OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 
 #summarize_pdf function
 
@@ -46,7 +53,7 @@ def summarize_pdf(pdf_file_path, chunk_size, chunk_overlap, chain_type, prompt):
 def main():
     #Set page config and title
     st.set_page_config(page_title="PDF Summarizer", page_icon=":book:", layout="wide")
-    st.title("Sam's GenAI App")
+    st.title("GenAI App")
 
     #Add custom sliders and selectbox for more user interaction
     chain_type = st.sidebar.selectbox("Chain Type", ["map_reduce", "stuff"])
@@ -67,3 +74,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#/home/ola/Documents/ubuntu/app_summary/example.pdf
